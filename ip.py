@@ -28,6 +28,10 @@ class IPIndicator:
         refresh.show()
         menu.append(refresh)
 
+        sep = gtk.SeparatorMenuItem()
+        sep.show()
+        menu.append(sep)
+
         e = gtk.RadioMenuItem(None, "External")
         e.connect("activate", self.on_use_external)
         e.set_active(True)
@@ -38,6 +42,10 @@ class IPIndicator:
         i.connect("activate", self.on_use_internal)
         i.show()
         menu.append(i)
+
+        sep = gtk.SeparatorMenuItem()
+        sep.show()
+        menu.append(sep)
 
         q = gtk.MenuItem("Quit")
         q.connect("activate", self.on_quit)
