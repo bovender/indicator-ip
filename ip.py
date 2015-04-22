@@ -5,7 +5,10 @@ import appindicator
 import gtk
 import re
 
-ICON = os.path.abspath("./images/icon.png")
+ICON = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        "images/icon.png"
+        )
 
 def get_ip():
 #   ip = subprocess.check_output('ifconfig |\
