@@ -10,6 +10,15 @@ ICON = os.path.join(
         "images/icon.png"
         )
 
+def sanitize_ip(ip):
+    """Ensure a properly formatted IP string is returned."""
+    if not ip:
+        return '(IP n/a)'
+    if re.match('[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}', ip):
+        return ip.strip()
+    else:
+        return '?.?.?.?'
+
 def get_ip():
 #   ip = subprocess.check_output('ifconfig |\
 #       grep -o -P "inet addr:([^ ]*)" |\
@@ -19,12 +28,9 @@ def get_ip():
         ip = subprocess.check_output(
                 ['curl', '-s', 'checkip.amazonaws.com'], 
                 shell=False)
-        if re.match('[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}', ip):
-            return ip.strip()
-        else:
-            return '?.?.?.?'
     except:
-        return '(IP n/a)'
+        ip = ''
+    return sanitize_ip(ip)
 
 class IPIndicator:
     def __init__(self):
