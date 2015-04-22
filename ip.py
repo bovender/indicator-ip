@@ -5,6 +5,9 @@ import appindicator
 import gtk
 import re
 
+"""Semantic version."""
+VERSION = '0.9.0'
+
 ICON = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
         "images/icon.png"
