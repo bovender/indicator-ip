@@ -8,16 +8,14 @@ import re
 """Semantic version."""
 VERSION = '0.9.0'
 
-ICON = os.path.join(
-        os.path.dirname(os.path.realpath(__file__)),
-        "images/icon.png"
-        )
-
 class IPIndicator:
     def __init__(self):
+        self.dir = os.path.dirname(os.path.realpath(__file__))
         self.get_ip_method = 'get_external_ip'
         self.ip = ""
-        self.ind = appindicator.Indicator("ip-indicator", ICON,
+        self.ind = appindicator.Indicator(
+            "ip-indicator",
+            os.path.join(self.dir, 'images/icon.png'),
             appindicator.CATEGORY_APPLICATION_STATUS)
         self.ind.set_status(appindicator.STATUS_ACTIVE)
         self.update()
@@ -50,6 +48,11 @@ class IPIndicator:
         sep.show()
         menu.append(sep)
 
+        a = gtk.MenuItem("About")
+        a.connect("activate", self.on_about)
+        a.show()
+        menu.append(a)
+
         q = gtk.MenuItem("Quit")
         q.connect("activate", self.on_quit)
         q.show()
@@ -78,6 +81,38 @@ class IPIndicator:
 
     def on_refresh(self, widget):
         self.update()
+
+    def on_about(self, widget):
+        about = gtk.AboutDialog()
+        about.set_program_name('unity-ip-indicator')
+        about.set_version('Version ' + VERSION)
+        about.set_website('https://github.com/bovender/unity-ip-indicator')
+        about.set_authors([
+                'DJG (https://github.com/sentientwaffle)',
+                'Daniel Kraus (https://github.com/bovender)'])
+        about.set_copyright('(c) 2012 DJG, 2015 Daniel Kraus')
+        about.set_comments('Show the current IP address as indicator.')
+        about.set_license("""
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files
+(the "Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject
+to the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.""")
+        response = about.run()
+        about.hide()
 
     def on_quit(self, widget):
         quit()
