@@ -43,6 +43,11 @@ class IPIndicator:
         refresh.show()
         menu.append(refresh)
 
+        i = gtk.MenuItem("Quit")
+        i.connect("activate", self.on_quit)
+        i.show()
+        menu.append(i)
+
         return menu
 
     def update(self):
@@ -59,6 +64,8 @@ class IPIndicator:
     def on_refresh(self, widget):
         self.update()
 
+    def on_quit(self, widget):
+        quit()
 
 if __name__ == "__main__":
     i = IPIndicator()
