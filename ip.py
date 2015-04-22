@@ -4,6 +4,8 @@ import subprocess
 import appindicator
 import gtk
 import re
+import dbus
+from dbus.mainloop.glib import DBusGMainLoop
 
 """Semantic version."""
 VERSION = '0.9.0'
@@ -18,8 +20,16 @@ class IPIndicator:
             os.path.join(self.dir, 'images/icon.png'),
             appindicator.CATEGORY_APPLICATION_STATUS)
         self.ind.set_status(appindicator.STATUS_ACTIVE)
+        self.connect_dbus()
         self.update()
         self.ind.set_menu(self.setup_menu())
+
+    def connect_dbus(self):
+        DBusGMainLoop(set_as_default=True)
+        system_bus = dbus.SystemBus()
+        system_bus.add_signal_receiver(self.on_dbus_state_changed, 
+                'StateChanged',
+                'org.freedesktop.NetworkManager.Device');
     
     def setup_menu(self):
         menu = gtk.Menu()
@@ -116,6 +126,9 @@ DEALINGS IN THE SOFTWARE.""")
 
     def on_quit(self, widget):
         quit()
+
+    def on_dbus_state_changed(self, *args, **kwargs):
+        self.update()
 
     def sanitize_ip(self, ip):
         """Ensure a properly formatted IP string is returned."""
