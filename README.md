@@ -3,9 +3,9 @@
 ![indicator](https://github.com/bovender/unity-ip-indicator/raw/master/images/screenshot.png)
 
 A Ubuntu [indicator](http://unity.ubuntu.com/projects/appindicators/)
-to display the current (subnet) IP address.
+to display the current IP address.
 
-Tested on Ubuntu 12.04 with Unity.
+Tested on Ubuntu 14.10 with Unity.
 
 # Installation
 
@@ -22,7 +22,6 @@ IP by default.
 
 - Make choice between 'internal' and 'external' persistent.
 - Show IP addresses in menu items as well.
-- About box.
 
 # MIT License
 
