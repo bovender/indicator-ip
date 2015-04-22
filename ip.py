@@ -3,15 +3,25 @@ import os
 import subprocess
 import appindicator
 import gtk
+import re
 
 ICON = os.path.abspath("./images/icon.png")
 
 def get_ip():
-    ip = subprocess.check_output('ifconfig |\
-        grep -o -P "inet addr:([^ ]*)" |\
-        grep -o -m 1 -P "[0-9.]+"', shell=True)
-    return ip.strip()
-
+#   ip = subprocess.check_output('ifconfig |\
+#       grep -o -P "inet addr:([^ ]*)" |\
+#       grep -o -m 1 -P "[0-9.]+"', shell=True)
+    # Get internet IP from icanhazip.com or checkip.amazonaws.com
+    try:
+        ip = subprocess.check_output(
+                ['curl', '-s', 'checkip.amazonaws.com'], 
+                shell=False)
+        if re.match('[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}', ip):
+            return ip.strip()
+        else:
+            return '?.?.?.?'
+    except:
+        return '(IP n/a)'
 
 class IPIndicator:
     def __init__(self):
