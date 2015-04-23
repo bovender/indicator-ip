@@ -24,7 +24,10 @@ class IPIndicator:
     """
     def refresh(self):
         self.__log.info('Refreshing')
-        previous = self.selected_interface
+        try:
+            previous = self.selected_interface.name
+        except AttributeError:
+            previous = None
 
         # Rebuild the dictionary of interfaces and the menu
         self.interfaces = Interfaces()
