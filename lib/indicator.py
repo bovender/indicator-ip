@@ -6,17 +6,18 @@ import logging
 from dbus.mainloop.glib import DBusGMainLoop
 from settings import Settings
 from ip import ExternalIp, InternalIp
-
-SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
+from helpers import script_path
 
 class IPIndicator:
     __log = logging.getLogger(__name__)
 
     def __init__(self):
         self.__log.debug('Initializing %s', self.__class__)
+        dummy_icon = os.path.join(script_path(), 'images/icon.png')
+        self.__log.debug('Loading dummy icon from %s', dummy_icon)
         self.ind = appindicator.Indicator(
             "ip-indicator",
-            os.path.join(SCRIPT_DIR, 'images/icon.png'),
+            dummy_icon,
             appindicator.CATEGORY_APPLICATION_STATUS)
         self.ind.set_status(appindicator.STATUS_ACTIVE)
 
