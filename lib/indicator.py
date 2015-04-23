@@ -105,6 +105,8 @@ class IPIndicator:
 
     def _on_dbus_state_changed(self, *args, **kwargs):
         self.__log.info('DBus state changed')
+        for ip in self.settings.ips.itervalues():
+            ip.update()
         self.update()
 
     def _on_refresh(self, widget):

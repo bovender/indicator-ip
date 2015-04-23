@@ -65,7 +65,10 @@ class Ip(object):
     """
     def _update_ip(self):
         self._log.debug('Fetching IP for %s', self.get_name())
-        self.ip = self._fetch_ip()
+        try:
+            self.ip = self._fetch_ip()
+        except:
+            self.ip = None
         if self.ip and re.match(IP_REGEX, self.ip):
             self.ip = self.ip.strip()
         else:
