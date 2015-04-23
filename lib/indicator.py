@@ -4,6 +4,7 @@ import gtk
 import dbus
 import logging
 import version
+import interfaces
 from dbus.mainloop.glib import DBusGMainLoop
 from settings import Settings
 from ip import ExternalIp, InternalIp
@@ -22,9 +23,13 @@ class IPIndicator:
             appindicator.CATEGORY_APPLICATION_STATUS)
         self.ind.set_status(appindicator.STATUS_ACTIVE)
 
+        # Create a settings object and add the external IP 
+        # as well as IPs for the network interfaces
         self.settings = Settings()
+        ifs = interfaces.Interfaces()
+        for interface in ifs.interfaces:
+            self.settings.add_ip(InternalIp(interface))
         self.settings.add_ip(ExternalIp())
-        self.settings.add_ip(InternalIp())
         self.settings.load()
 
         self.ind.set_menu(self._setup_menu())

@@ -10,7 +10,7 @@ Abstract base class that represents an IP type (e.g. external
 vs. internal; might implement ability to handle different interfaces
 in the future.
 """
-class Ip:
+class Ip(object):
     _log = logging.getLogger(__name__)
 
     def __init__(self):
@@ -102,11 +102,16 @@ class ExternalIp(Ip):
 Represents the IP that the default network interface is bound to.
 """
 class InternalIp(Ip):
+    def __init__(self, interface):
+        self.__interface = interface
+        super(InternalIp, self).__init__()
+
     def get_name(self):
-        return 'Internal'
+        return self.__interface
 
     def _fetch_ip(self):
-        self._log.debug('Fetching new internal IP')
-        return subprocess.check_output('ifconfig |\
-            grep -o -P "inet addr:([^ ]*)" |\
-            grep -o -m 1 -P "[0-9.]+"', shell=True)
+        self._log.debug('Fetching IP for interfact ' + self.__interface)
+        return subprocess.check_output(
+            'ip -4 --oneline addr show "' + self.__interface + '" |\
+            grep -o -P "(?<=inet )([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})"',
+            shell=True)
