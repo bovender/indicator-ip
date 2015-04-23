@@ -112,7 +112,7 @@ class IPIndicator:
 
     def _on_quit(self, widget):
         self.__log.info('User clicked Quit')
-        quit()
+        gtk.main_quit()
 
     def _on_about(self, widget):
         self.__log.debug('Showing about about box')
