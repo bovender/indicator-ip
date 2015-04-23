@@ -10,7 +10,7 @@ Tested on Ubuntu 14.10 with Unity.
 # Installation
 
   1. Checkout source code.
-  2. Auto-run `unity-ip-indicator.py` on system start-up.
+  2. Auto-run `indicator-ip` on system start-up.
 
 # Modifications by bovender
 
