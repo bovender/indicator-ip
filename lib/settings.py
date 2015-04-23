@@ -3,27 +3,20 @@ import yaml
 import logging
 
 """
-Holds a dictionary of IP objects and makes the last used IP type persist in
-a file in the user's ~/.config directory.
+Stores and retrieves settings.
 """
 class Settings:
-    __key = 'ip'
+    __interface_key = 'interface'
+    __url_key = 'url'
     __log = logging.getLogger(__name__)
 
     def __init__(self):
         self.__log.debug('Initializing %s', self.__class__)
-        self.ips = {}
-        self.current_ip = None
+        self.interface = None
+        self.url = None
 
     """
-    Adds an IP object to the dictionary.
-    """
-    def add_ip(self, ip):
-        self.__log.info('Adding IP with name %s', ip.get_name())
-        self.ips[ip.get_name()] = ip
-
-    """
-    Loads the last used IP from the config file.
+    Loads the previous settings.
     """
     def load(self):
         self.__log.info('Loading previous configuration')
@@ -35,22 +28,20 @@ class Settings:
             self.__log.warning('Could not load config: %s (%s)',
                     e.strerror, e.errno)
         if not config:
-            config = { self.__key: '' }
-        self.current_ip = self.ips.get(config.get(self.__key))
-        if self.current_ip:
-            self.__log.debug('Using IP for "%s"', self.current_ip.get_name())
-        else:
-            default = self.ips.itervalues().next()
-            self.__log.debug('Using default IP for "%s"', default.get_name())
-            self.current_ip = default
-        self.current_ip.activate()
+            config = {}
+        self.__log.debug('Loaded config: %s', config)
+        self.interface = config.get(self.__interface_key)
+        self.url = config.get(self.__url_key)
 
     """
-    Saves the last used IP to the config file.
+    Saves current settings.
     """
     def save(self):
         self.__log.info('Saving current configuration')
-        config = { self.__key: self.current_ip.get_name() }
+        config = { 
+                self.__interface_key: self.interface,
+                self.__url_key: self.url
+                }
         self.__log.debug('Configuration to save: %s', config)
         try:
            file_name = self.config_file_path()

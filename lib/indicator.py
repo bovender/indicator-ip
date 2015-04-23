@@ -4,13 +4,44 @@ import gtk
 import dbus
 import logging
 import version
-import interfaces
+import interface
+from interfaces import Interfaces
+from menu_item import MenuItem
 from dbus.mainloop.glib import DBusGMainLoop
 from settings import Settings
-from ip import ExternalIp, InternalIp
 from helpers import script_path
 
 class IPIndicator:
+    """
+    Updates the label in the indicator bar. Does not refetch current IPs!
+    """
+    def update(self):
+        self.__log.info('Updating indicator label')
+        self.ind.set_label(self.selected_interface.ip)
+
+    """
+    Fetches the current interfaces and their IPs.
+    """
+    def refresh(self):
+        self.__log.info('Refreshing')
+        previous = self.selected_interface
+
+        # Rebuild the dictionary of interfaces and the menu
+        self.interfaces = Interfaces()
+        self._create_menu()
+
+        # Select previously selected interface again
+        if self.interfaces.has_interface(previous):
+            self.__log.debug('Using previously selected interface %s', previous)
+            self._menu_items[previous].select()
+        else:
+            self.__log.debug(
+                    'Previously selected interface %s no longer exists, using public',
+                    previous)
+            self._menu_items[interface.PUBLIC].select()
+
+        self.update()
+
     __log = logging.getLogger(__name__)
 
     def __init__(self):
@@ -23,24 +54,15 @@ class IPIndicator:
             appindicator.CATEGORY_APPLICATION_STATUS)
         self.ind.set_status(appindicator.STATUS_ACTIVE)
 
-        # Create a settings object and add the external IP 
-        # as well as IPs for the network interfaces
+        self.selected_interface = None
         self.settings = Settings()
-        ifs = interfaces.Interfaces()
-        for interface in ifs.interfaces:
-            self.settings.add_ip(InternalIp(interface))
-        self.settings.add_ip(ExternalIp())
-        self.settings.load()
-
-        self.ind.set_menu(self._setup_menu())
+        self.refresh()
+        if self.interfaces.has_interface(self.settings.interface):
+            self._menu_items[self.settings.interface].select()
         self._connect_dbus()
 
-        for ip in self.settings.ips.itervalues():
-            ip.activated = self._switch_ip
-        self.update()
-
     def _connect_dbus(self):
-        self.__log.debug('Connecting to DBus')
+        self.__log.info('Connecting to DBus')
         DBusGMainLoop(set_as_default=True)
         system_bus = dbus.SystemBus()
         system_bus.add_signal_receiver(self._on_dbus_state_changed, 
@@ -50,12 +72,12 @@ class IPIndicator:
                 'StateChanged',
                 'org.freedesktop.NetworkManager.Device')
     
-    def _setup_menu(self):
-        self.__log.debug('Setting up menu')
+    def _create_menu(self):
+        self.__log.info('Building menu')
         menu = gtk.Menu()
 
         refresh = gtk.MenuItem("Refresh")
-        refresh.connect("activate", self._on_refresh)
+        refresh.connect("activate", self._on_manual_refresh)
         refresh.show()
         menu.append(refresh)
 
@@ -63,13 +85,19 @@ class IPIndicator:
         sep.show()
         menu.append(sep)
 
-        group_item = self.settings.ips.itervalues().next() \
-                .get_menu().get_group()[0]
-        for ip in self.settings.ips.itervalues():
-            menu_item = ip.get_menu()
-            if group_item != menu_item:
-                menu_item.set_group(group_item)
-            menu.append(menu_item)
+        # Build the list of interfaces
+        group = None
+        self._menu_items = {}
+        for interface in self.interfaces.interfaces.itervalues():
+            item = MenuItem(interface)
+            item.selected = self._select_interface
+            if not group:
+                group = item.get_item().get_group()[0]
+            else:
+                item.get_item().set_group(group)
+            menu.append(item.get_item())
+            self._menu_items[interface.name] = item
+        self.__log.debug('Menu items: %s', self._menu_items)
 
         sep = gtk.SeparatorMenuItem()
         sep.show()
@@ -85,35 +113,22 @@ class IPIndicator:
         q.show()
         menu.append(q)
 
-        return menu
+        self.ind.set_menu(menu)
 
-    """
-    Updates the label in the indicator bar.
-    """
-    def update(self):
-        name = self.settings.current_ip.get_name()
-        ip_address = self.settings.current_ip.ip
-        self.__log.debug('Updating indicator for "%s" with IP "%s"',
-                name, ip_address)
-        self.ind.set_label(ip_address)
-
-    def _switch_ip(self, ip):
-        self.__log.info('Switching IP to %s', ip.get_name())
-        self.settings.current_ip = ip
+    def _select_interface(self, menu_item, interface):
+        self.__log.info('Selecting interface: %s', interface.name)
+        self.selected_interface = interface
+        self.settings.interface = interface.name
         self.settings.save()
         self.update()
 
     def _on_dbus_state_changed(self, *args, **kwargs):
         self.__log.info('DBus state changed')
-        for ip in self.settings.ips.itervalues():
-            ip.update()
-        self.update()
+        self.refresh()
 
-    def _on_refresh(self, widget):
-        self.__log.info('Refreshing all IPs')
-        for ip in self.settings.ips.itervalues():
-            ip.update()
-        self.update()
+    def _on_manual_refresh(self, widget):
+        self.__log.info('User triggered manual refresh')
+        self.refresh()
 
     def _on_quit(self, widget):
         self.__log.info('User clicked Quit')
@@ -151,4 +166,3 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.""")
         response = about.run()
         about.hide()
-
