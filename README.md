@@ -18,11 +18,6 @@ I implemented the ability to switch between 'internal' (local network) and
 'external' (translated internet) IP addresses. The indicator shows the external
 IP by default.
 
-## To do
-
-- Make choice between 'internal' and 'external' persistent.
-- Show IP addresses in menu items as well.
-
 # MIT License
 
 Copyright (c) 2012 [DJG](https://github.com/sentientwaffle),
