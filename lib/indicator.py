@@ -45,7 +45,10 @@ class IPIndicator:
         system_bus = dbus.SystemBus()
         system_bus.add_signal_receiver(self._on_dbus_state_changed, 
                 'StateChanged',
-                'org.freedesktop.NetworkManager.Device');
+                'org.freedesktop.NetworkManager')
+        system_bus.add_signal_receiver(self._on_dbus_state_changed, 
+                'StateChanged',
+                'org.freedesktop.NetworkManager.Device')
     
     def _setup_menu(self):
         self.__log.debug('Setting up menu')
