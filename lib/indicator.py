@@ -69,11 +69,8 @@ class IPIndicator:
         DBusGMainLoop(set_as_default=True)
         system_bus = dbus.SystemBus()
         system_bus.add_signal_receiver(self._on_dbus_state_changed, 
-                'StateChanged',
-                'org.freedesktop.NetworkManager')
-        system_bus.add_signal_receiver(self._on_dbus_state_changed, 
-                'StateChanged',
-                'org.freedesktop.NetworkManager.Device')
+                'PropertiesChanged',
+                'org.freedesktop.NetworkManager.Connection.Active')
     
     def _create_menu(self):
         self.__log.info('Building menu')
