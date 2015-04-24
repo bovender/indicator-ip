@@ -1,6 +1,6 @@
 # IP Indicator
 
-![indicator](https://github.com/bovender/unity-ip-indicator/raw/master/images/screenshot.png)
+![indicator](https://github.com/bovender/indicator-ip/raw/master/images/screenshot.png)
 
 A Ubuntu [indicator](http://unity.ubuntu.com/projects/appindicators/)
 to display the current IP address.
