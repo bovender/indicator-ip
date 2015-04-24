@@ -2,6 +2,7 @@ import os
 import appindicator
 import gtk
 import dbus
+import time
 import logging
 import version
 import interface
@@ -125,6 +126,7 @@ class IPIndicator:
 
     def _on_dbus_state_changed(self, *args, **kwargs):
         self.__log.info('DBus state changed')
+        time.sleep(300)
         self.refresh()
 
     def _on_manual_refresh(self, widget):
