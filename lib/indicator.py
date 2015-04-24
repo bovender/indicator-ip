@@ -60,7 +60,6 @@ class IPIndicator:
 
         self.selected_interface = None
         self.settings = Settings()
-        self.settings.load()
         self.refresh()
         if self.interfaces.has_interface(self.settings.interface):
             self._menu_items[self.settings.interface].select()
