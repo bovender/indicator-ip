@@ -82,7 +82,7 @@ class Settings:
         path = os.path.join(
                 os.path.expanduser('~/.config'),
                 'indicator-ip',
-                'settings.yml')
+                'settings')
         self.__log.debug('Config file path: %s', path)
         return path
 
