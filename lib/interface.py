@@ -60,7 +60,7 @@ class Public(Interface):
         self._log.debug('Fetching new external IP from %s', self.provider)
         # Use shell=False also for security!
         return subprocess.check_output(
-                ['curl', '--max-filesize 15', '-s', self.provider],
+                ['curl', '--max-filesize', '15', '-s', self.provider],
                 shell=False)
 
 """
