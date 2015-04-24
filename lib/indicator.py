@@ -141,7 +141,7 @@ class IPIndicator:
         about = gtk.AboutDialog()
         about.set_program_name('indicator-ip')
         about.set_version('Version ' + version.VERSION)
-        about.set_website('https://github.com/bovender/unity-ip-indicator')
+        about.set_website('https://github.com/bovender/indicator-ip')
         about.set_authors([
                 'DJG (https://github.com/sentientwaffle)',
                 'Daniel Kraus (https://github.com/bovender)'])
