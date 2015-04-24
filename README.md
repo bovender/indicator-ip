@@ -3,26 +3,39 @@
 ![indicator](https://github.com/bovender/unity-ip-indicator/raw/master/images/screenshot.png)
 
 A Ubuntu [indicator](http://unity.ubuntu.com/projects/appindicators/)
-to display the current (subnet) IP address.
+to display the current IP address.
 
-Tested on Ubuntu 12.04 with Unity.
+Tested on Ubuntu 14.10 with Unity.
 
 # Installation
 
   1. Checkout source code.
-  2. Auto-run `ip.py` on system start-up.
+  2. Auto-run `indicator-ip` on system start-up.
+
+# Configuration
+
+The indicator applet will store the last used interface in a config file in
+
+        ~/.config/indicator-ip/settings
+
+This file may also contain an alternative URL to fetch the public IP:
+
+        [indicator-ip]
+        url = icanhazip.com ; <-- this would be the alternative URL
+        interface = public
+
+
+# To do
+
+- Implement command line arguments to fetch public IP and to set log level.
+
 
 # Modifications by bovender
 
-I implemented the ability to switch between 'internal' (local network) and
-'external' (translated internet) IP addresses. The indicator shows the external
-IP by default.
+The code base by [DJG](https://github.com/sentientwaffle) was completely
+overhauled by me in April 2015. I implemented the ability to switch between
+internal interfaces and the public IP.
 
-## To do
-
-- Make choice between 'internal' and 'external' persistent.
-- Show IP addresses in menu items as well.
-- About box.
 
 # MIT License
 
