@@ -1,11 +1,15 @@
-0.9.0 (2015-04-22)
+Version 1.0.1 (2015-04-24)
 ========================================================================
 
-- NEW: Ability to switch between internal and external IP.
+- FIX: Prevent apparent hang after network state changed.
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+
+
 Version 1.0.0 (2015-04-24)
 ========================================================================
+
+Code base was completely overhauled.
 
 - CHANGE: Removed dependency on package 'python-yaml'.
 - CHANGED: Code was completely refactored.

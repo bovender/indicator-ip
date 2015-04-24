@@ -125,7 +125,7 @@ class IPIndicator:
 
     def _on_dbus_state_changed(self, *args, **kwargs):
         self.__log.info('DBus state changed')
-        time.sleep(300)
+        time.sleep(0.3)
         self.refresh()
 
     def _on_manual_refresh(self, widget):
