@@ -18,6 +18,10 @@ I implemented the ability to switch between 'internal' (local network) and
 'external' (translated internet) IP addresses. The indicator shows the external
 IP by default.
 
+# To do
+
+- Implement command line arguments to fetch public IP and to set log level.
+
 # MIT License
 
 Copyright (c) 2012 [DJG](https://github.com/sentientwaffle),
