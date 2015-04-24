@@ -4,7 +4,6 @@ import re
 import logging
 
 PUBLIC = 'public'
-DEFAULT_PROVIDER = 'checkip.amazonaws.com'
 NO_IP = '---.---.---.---'
 IP_REGEX = '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
 
@@ -51,13 +50,10 @@ class Public(Interface):
     Initializes the object. An optional URL for an IP provider can be given;
     this provider must return nothing else but the IP in text form.
     """
-    def __init__(self, provider=None):
+    def __init__(self, provider):
         self._log.debug('Initializing %s', self.__class__)
         self.name = PUBLIC
-        if provider:
-            self.provider = provider
-        else:
-            self.provider = DEFAULT_PROVIDER
+        self.provider = provider
         self.update()
 
     def _fetch_ip(self):

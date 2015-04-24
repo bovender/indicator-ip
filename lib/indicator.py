@@ -30,7 +30,7 @@ class IPIndicator:
             previous = None
 
         # Rebuild the dictionary of interfaces and the menu
-        self.interfaces = Interfaces()
+        self.interfaces = Interfaces(self.settings.url)
         self._create_menu()
 
         # Select previously selected interface again
@@ -59,6 +59,7 @@ class IPIndicator:
 
         self.selected_interface = None
         self.settings = Settings()
+        self.settings.load()
         self.refresh()
         if self.interfaces.has_interface(self.settings.interface):
             self._menu_items[self.settings.interface].select()

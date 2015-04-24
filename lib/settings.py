@@ -1,6 +1,9 @@
 import os
 import yaml
 import logging
+import re
+
+DEFAULT_PROVIDER = 'checkip.amazonaws.com'
 
 """
 Stores and retrieves settings.
@@ -13,7 +16,7 @@ class Settings:
     def __init__(self):
         self.__log.debug('Initializing %s', self.__class__)
         self.interface = None
-        self.url = None
+        self.url = DEFAULT_PROVIDER
 
     """
     Loads the previous settings.
@@ -32,6 +35,7 @@ class Settings:
         self.__log.debug('Loaded config: %s', config)
         self.interface = config.get(self.__interface_key)
         self.url = config.get(self.__url_key)
+        self.sanitize_url()
 
     """
     Saves current settings.
@@ -53,6 +57,22 @@ class Settings:
         except IOError as e:
             self.__log.warning('Could not save config: %s (%s)',
                     e.strerror, e.errno)
+
+    """
+    Performs some basic sanity checking on the fetch-ip URL and uses
+    the default URL if needed.
+    """
+    def sanitize_url(self):
+        self.__log.debug('Sanitizing URL %s', self.url)
+        if not self.url:
+            self.url = DEFAULT_PROVIDER
+            self.__log.info('Using default IP provider %s', self.url)
+            return
+        if not re.match('^([a-zA-Z]+://)?[a-zA-Z-_./]+$', self.url):
+            self.url = DEFAULT_PROVIDER
+            self.__log.warning(
+                    'Fetch-IP URL %s has unexpected format, falling back to default %s',
+                    self.url)
 
     """
     Returns the path to the config file.

@@ -9,9 +9,10 @@ the external 'ip' command, and provides a list of IP objects.
 class Interfaces:
     __log = logging.getLogger(__name__)
 
-    def __init__(self):
+    def __init__(self, fetch_ip_url):
         """Holds a multi-line string of all interfaces with IPv4 addresses."""
         self.all_interfaces = None
+        self.__fetch_ip_url = fetch_ip_url
         self.build_list()
 
     """
@@ -31,7 +32,9 @@ class Interfaces:
         except:
             pass
         # Put the default 'external' interface into the list.
-        self.interfaces = { interface.PUBLIC: interface.Public() }
+        self.interfaces = { 
+                interface.PUBLIC: interface.Public(self.__fetch_ip_url)
+                }
         for name in if_names:
             i = interface.Internal(name)
             self.interfaces[name] = i
