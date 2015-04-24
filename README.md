@@ -12,15 +12,30 @@ Tested on Ubuntu 14.10 with Unity.
   1. Checkout source code.
   2. Auto-run `indicator-ip` on system start-up.
 
-# Modifications by bovender
+# Configuration
 
-I implemented the ability to switch between 'internal' (local network) and
-'external' (translated internet) IP addresses. The indicator shows the external
-IP by default.
+The indicator applet will store the last used interface in a config file in
+
+        ~/.config/indicator-ip/settings
+
+This file may also contain an alternative URL to fetch the public IP:
+
+        [indicator-ip]
+        url = icanhazip.com ; <-- this would be the alternative URL
+        interface = public
+
 
 # To do
 
 - Implement command line arguments to fetch public IP and to set log level.
+
+
+# Modifications by bovender
+
+The code base by [DJG](https://github.com/sentientwaffle) was completely
+overhauled by me in April 2015. I implemented the ability to switch between
+internal interfaces and the public IP.
+
 
 # MIT License
 
