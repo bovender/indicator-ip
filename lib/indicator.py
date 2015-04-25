@@ -60,6 +60,7 @@ class IPIndicator:
 
         self.settings = settings
         self.__log.debug('Settings: %s', vars(settings))
+        self.settings.sanitize_url()
         self.selected_interface = None
         self.refresh()
         if self.interfaces.has_interface(self.settings.interface):

@@ -70,10 +70,10 @@ class Settings:
             self.__log.info('Using default IP provider %s', self.url)
             return
         if not re.match('^([a-zA-Z]+://)?[a-zA-Z-_./]+$', self.url):
-            self.url = DEFAULT_PROVIDER
             self.__log.warning(
                     'Fetch-IP URL %s has unexpected format, falling back to default %s',
-                    self.url)
+                    self.url, DEFAULT_PROVIDER)
+            self.url = DEFAULT_PROVIDER
 
     """
     Returns the path to the config file.
