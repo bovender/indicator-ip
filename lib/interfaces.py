@@ -25,7 +25,8 @@ class Interfaces:
         self.all_interfaces = subprocess.check_output(
             'ip -4 --oneline addr show | awk \'{ print $2 }\'',
             shell=True)
-        self.__log.debug('Using %s', self.all_interfaces.replace('\n', ' '))
+        self.__log.debug('Found interfaces %s', 
+                self.all_interfaces.replace('\n', ' '))
         if_names = self.all_interfaces.splitlines()
         try:
             if_names.remove('lo')
