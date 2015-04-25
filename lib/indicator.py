@@ -48,7 +48,7 @@ class IPIndicator:
 
     __log = logging.getLogger(__name__)
 
-    def __init__(self):
+    def __init__(self, settings):
         self.__log.debug('Initializing %s', self.__class__)
         dummy_icon = os.path.join(script_path(), 'images/icon.png')
         self.__log.debug('Loading dummy icon from %s', dummy_icon)
@@ -58,11 +58,17 @@ class IPIndicator:
             appindicator.CATEGORY_APPLICATION_STATUS)
         self.ind.set_status(appindicator.STATUS_ACTIVE)
 
+        self.settings = settings
+        self.__log.debug('Settings: %s', vars(settings))
         self.selected_interface = None
-        self.settings = Settings()
         self.refresh()
         if self.interfaces.has_interface(self.settings.interface):
+            self.__log.debug('Using interface %s from settings',
+                    self.settings.interface)
             self._menu_items[self.settings.interface].select()
+        else:
+            self.__log.debug('Cannot use interface %s from settings',
+                    self.settings.interface)
         self._connect_dbus()
 
     def _connect_dbus(self):
@@ -119,8 +125,6 @@ class IPIndicator:
     def _select_interface(self, menu_item, interface):
         self.__log.info('Selecting interface: %s', interface.name)
         self.selected_interface = interface
-        self.settings.interface = interface.name
-        self.settings.save()
         self.update()
 
     def _on_dbus_state_changed(self, *args, **kwargs):
@@ -133,7 +137,9 @@ class IPIndicator:
         self.refresh()
 
     def _on_quit(self, widget):
-        self.__log.info('User clicked Quit')
+        self.__log.info('=== User clicked Quit ===')
+        self.settings.interface = self.selected_interface.name
+        self.settings.save()
         gtk.main_quit()
 
     def _on_about(self, widget):
