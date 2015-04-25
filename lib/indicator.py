@@ -151,7 +151,12 @@ class IPIndicator:
                 'DJG (https://github.com/sentientwaffle)',
                 'Daniel Kraus (https://github.com/bovender)'])
         about.set_copyright('(c) 2012 DJG, 2015 Daniel Kraus')
-        about.set_comments('Show the current IP address as indicator.')
+        about.set_comments("""
+Show the current IP address as indicator.
+
+Public IP provider: %s
+(Change on command line with -u option.)
+""" % self.settings.url)
         about.set_license("""
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files
