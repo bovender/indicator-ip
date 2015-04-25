@@ -30,10 +30,13 @@ if __name__ == "__main__":
     log.info('Starting %s', __file__)
     settings = Settings()
     parse_commandline(settings)
+
     # Translate the number of 'v's to a logging level
-    if settings.verbosity: settings.verbosity += 1
-    log_level = (5 - min(5, settings.verbosity)) * 10
-    logging.basicConfig(level=log_level)
+    if settings.verbosity:
+        settings.verbosity += 1
+        log_level = (5 - min(5, settings.verbosity)) * 10
+        logging.basicConfig(level=log_level)
+
     indicator = IPIndicator(settings)
     try:
         gtk.main()
