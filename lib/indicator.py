@@ -138,8 +138,6 @@ class IPIndicator:
 
     def _on_quit(self, widget):
         self.__log.info('=== User clicked Quit ===')
-        self.settings.interface = self.selected_interface.name
-        self.settings.save()
         gtk.main_quit()
 
     def _on_about(self, widget):

@@ -33,11 +33,12 @@ if __name__ == "__main__":
     # Translate the number of 'v's to a logging level
     log_level = (5 - min(5, settings.verbosity)) * 10
     logging.basicConfig(level=log_level)
-    i = IPIndicator(settings)
+    indicator = IPIndicator(settings)
     try:
         gtk.main()
     except KeyboardInterrupt:
         log.info('=== Caught keyboard interrupt ===')
+    settings.interface = indicator.selected_interface.name
     settings.save()
     log.info('Exiting %s', __file__)
 
