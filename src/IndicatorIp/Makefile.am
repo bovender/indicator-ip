@@ -1,5 +1,5 @@
 prog_PYTHON = \
-	__init.py__ \
+	__init__.py \
 	indicator.py \
 	interface.py \
 	interface.pyc \
