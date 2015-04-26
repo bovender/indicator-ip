@@ -10,7 +10,6 @@ from interfaces import Interfaces
 from menu_item import MenuItem
 from dbus.mainloop.glib import DBusGMainLoop
 from settings import Settings
-from helpers import script_path
 
 class IPIndicator:
     """
@@ -50,7 +49,9 @@ class IPIndicator:
 
     def __init__(self, settings):
         self.__log.debug('Initializing %s', self.__class__)
-        dummy_icon = os.path.join(script_path(), 'images/icon.png')
+        dummy_icon = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), 
+            'images', 'icon.png')
         self.__log.debug('Loading dummy icon from %s', dummy_icon)
         self.ind = appindicator.Indicator(
             "ip-indicator",
