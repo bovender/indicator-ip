@@ -1,33 +1,51 @@
-# IP Indicator
+# indicator-ip
 
-![indicator](https://github.com/bovender/unity-ip-indicator/raw/master/images/screenshot.png)
+![indicator](https://github.com/bovender/indicator-ip/raw/master/images/screenshot.png)
 
 A Ubuntu [indicator](http://unity.ubuntu.com/projects/appindicators/)
 to display the current IP address.
 
-Tested on Ubuntu 14.10 with Unity.
+Tested on Ubuntu 14.10 and 15.04 with Unity.
 
 # Installation
 
   1. Checkout source code.
   2. Auto-run `indicator-ip` on system start-up.
 
-# Configuration
+# Command-line options
 
-The indicator applet will store the last used interface in a config file in
+## `-i INTERFACE, --interface INTERFACE`
 
-        ~/.config/indicator-ip/settings
+Show the IP for the given interface at startup. Use `-i public` to show the public IP.
 
-This file may also contain an alternative URL to fetch the public IP:
+## `-u URL, --fetch-ip-url URL`
 
-        [indicator-ip]
-        url = icanhazip.com ; <-- this would be the alternative URL
-        interface = public
+Fetch the IP from the service at URL. By default, indicator-ip uses
+`checkip.amazonaws.com` to obtain the public IP. You may want to use
+another service such as `icanhazip.com` or any other service that
+returns the IP in text form. Note that indicator-ip will refuse to take
+output that is longer than 17 bytes (e.g., longer than `xxx.xxx.xxx.xxx`
+plus a trailing newline and/or carriage return).
+
+## `-v, --verbose`
+
+Increase verbosity to standard output. Of course this is only meaningful
+if you run `indicator-ip` in a terminal. Use one or more `v`'s to set
+the debug level to WARN, INFO, or DEBUG (e.g., `-vvv` to see debug
+messages).
+
+## `-V, --version`
+
+Print version number and exit.
+
+## `-h, --help`
+
+The usual.
 
 
 # To do
 
-- Implement command line arguments to fetch public IP and to set log level.
+- Package and distribute via PPA
 
 
 # Modifications by bovender
@@ -60,3 +78,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
+
+<!-- vim: set tw=72: -->

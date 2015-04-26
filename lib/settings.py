@@ -10,7 +10,7 @@ Stores and retrieves settings.
 """
 class Settings:
     __interface_key = 'interface'
-    __url_key = 'url'
+    # __url_key = 'url'
     __log = logging.getLogger(__name__)
     __section = 'indicator-ip'
 
@@ -32,8 +32,8 @@ class Settings:
                 self.__log.debug('Loaded config: %s', self.parser.items(self.__section))
                 if self.parser.has_option(self.__section, self.__interface_key):
                     self.interface = self.parser.get(self.__section, self.__interface_key)
-                self.url = self.parser.get(self.__section, self.__url_key)
-                self.sanitize_url()
+                # self.url = self.parser.get(self.__section, self.__url_key)
+                # self.sanitize_url()
         except IOError as e:
             self.__log.warning('Could not load config: %s (%s)',
                     e.strerror, e.errno)
@@ -45,7 +45,7 @@ class Settings:
         self.__log.info('Saving current configuration')
         self.parser = self.__create_parser()
         self.parser.add_section(self.__section)
-        self.parser.set(self.__section, self.__url_key, self.url)
+        # self.parser.set(self.__section, self.__url_key, self.url)
         self.parser.set(self.__section, self.__interface_key, self.interface)
         self.__log.debug('Configuration to save: %s', self.parser.items(self.__section))
         try:
@@ -70,10 +70,10 @@ class Settings:
             self.__log.info('Using default IP provider %s', self.url)
             return
         if not re.match('^([a-zA-Z]+://)?[a-zA-Z-_./]+$', self.url):
-            self.url = DEFAULT_PROVIDER
             self.__log.warning(
                     'Fetch-IP URL %s has unexpected format, falling back to default %s',
-                    self.url)
+                    self.url, DEFAULT_PROVIDER)
+            self.url = DEFAULT_PROVIDER
 
     """
     Returns the path to the config file.
