@@ -5,6 +5,7 @@ import argparse
 from IndicatorIp.settings import Settings
 from IndicatorIp.version import VERSION
 from IndicatorIp.indicator import IPIndicator
+import IndicatorIp.autostart
 
 def parse_commandline(into_settings):
     parser = argparse.ArgumentParser(
@@ -12,6 +13,14 @@ def parse_commandline(into_settings):
     parser.add_argument('-i', '--interface',
             dest='interface',
             help='Show IP of INTERFACE (use "public" to show public IP)')
+    parser.add_argument('--autostart',
+            action='store_true',
+            dest='autostart',
+            help='Automatically start the indicator after logging into Unity.')
+    parser.add_argument('--no-autostart',
+            action='store_true',
+            dest='no_autostart',
+            help='Display instructions to disable autostart.')
     parser.add_argument('-u', '--fetch-ip-url',
             dest='url',
             help='URL of a service that returns the IP as plain text')
@@ -32,17 +41,23 @@ if __name__ == "__main__":
     parse_commandline(settings)
 
     # Translate the number of 'v's to a logging level
+    log_level = 50
     if settings.verbosity:
         settings.verbosity += 1
         log_level = (5 - min(5, settings.verbosity)) * 10
-        logging.basicConfig(level=log_level)
+    logging.basicConfig(level=log_level)
 
-    indicator = IPIndicator(settings)
-    try:
-        gtk.main()
-    except KeyboardInterrupt:
-        log.info('=== Caught keyboard interrupt ===')
-    settings.interface = indicator.selected_interface.name
-    settings.save()
+    if settings.autostart:
+        IndicatorIp.autostart.enable()
+    elif settings.no_autostart:
+        IndicatorIp.autostart.disable()
+    else:
+        indicator = IPIndicator(settings)
+        try:
+            gtk.main()
+        except KeyboardInterrupt:
+            log.info('=== Caught keyboard interrupt ===')
+        settings.interface = indicator.selected_interface.name
+        settings.save()
+
     log.info('Exiting %s', __file__)
-
