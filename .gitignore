@@ -1,2 +1,14 @@
 *~
 *.pyc
+Makefile
+Makefile.in
+/aclocal.m4
+/autom4te.cache/
+/config.*
+/m4/
+/stamp-h?
+/debian/indicator-ip*
+.deps/
+.dirstamp
+*.o
+*~

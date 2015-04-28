@@ -2,9 +2,9 @@
 import gtk
 import logging
 import argparse
-from lib.settings import Settings
-from lib.version import VERSION
-from lib.indicator import IPIndicator
+from IndicatorIp.settings import Settings
+from IndicatorIp.version import VERSION
+from IndicatorIp.indicator import IPIndicator
 
 def parse_commandline(into_settings):
     parser = argparse.ArgumentParser(
