@@ -1,4 +1,5 @@
 #!/usr/bin/env python2
+import sys
 import gtk
 import logging
 import argparse
@@ -6,6 +7,8 @@ from IndicatorIp.settings import Settings
 from IndicatorIp.version import VERSION
 from IndicatorIp.indicator import IPIndicator
 import IndicatorIp.autostart
+
+sys.path.insert(1, '@pythondir@')
 
 def parse_commandline(into_settings):
     parser = argparse.ArgumentParser(

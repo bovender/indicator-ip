@@ -8,6 +8,7 @@ Makefile.in
 /m4/
 /stamp-h?
 /debian/indicator-ip*
+/src/indicator-ip
 .deps/
 .dirstamp
 *.o
