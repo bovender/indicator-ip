@@ -20,7 +20,6 @@ set -e
 case "$1" in
     remove|upgrade|deconfigure)
             indicator-ip --no-autostart
-            killall indicator-ip
     ;;
 
     failed-upgrade)
