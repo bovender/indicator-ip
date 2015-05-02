@@ -1,3 +1,9 @@
+indicator-ip (2.0.1) vivid; urgency=medium
+
+  * Fix .deb package build. 
+
+ -- Daniel Kraus <krada@gmx.net>  Sat, 02 May 2015 16:07:08 +0200
+
 indicator-ip (2.0.0) vivid; urgency=low
 
   * Initial Release as Ubuntu package.
