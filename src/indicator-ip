@@ -8,7 +8,7 @@ from IndicatorIp.version import VERSION
 from IndicatorIp.indicator import IPIndicator
 import IndicatorIp.autostart
 
-sys.path.insert(1, '@pythondir@')
+sys.path.insert(1, '/usr/lib/IndicatorIp')
 
 def parse_commandline(into_settings):
     parser = argparse.ArgumentParser(
