@@ -3,7 +3,7 @@ BINDIR ?= $(PREFIX)/bin
 MANDIR ?= $(PREFIX)/share/man
 SHAREDIR ?= $(PREFIX)/share
 
-.PHONY: clean install
+.PHONY: clean install upload
 
 clean:
 	rm -f indicator-ip.1* NEWS README
@@ -26,3 +26,7 @@ NEWS: NEWS.md
 README: README.md
 	pandoc README.md -t plain -o README
 	
+upload:
+	debuild -S
+	dput ppa:bovender/bovender ../indicator-ip_*_source.changes
+	rm ../indicator-ip_*_source.changes
