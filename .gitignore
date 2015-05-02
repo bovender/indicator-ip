@@ -4,3 +4,5 @@
 /debian/indicator-ip/*
 /indicator-ip.1*
 *.debhelper
+NEWS
+README
