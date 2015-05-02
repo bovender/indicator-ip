@@ -3,3 +3,4 @@
 *.log
 /debian/indicator-ip/*
 /indicator-ip.1*
+*.debhelper
