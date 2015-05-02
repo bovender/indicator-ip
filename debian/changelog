@@ -1,0 +1,5 @@
+indicator-ip (2.0.0) vivid; urgency=low
+
+  * Initial Release as Ubuntu package.
+
+ -- Daniel Kraus <krada@gmx.net>  Sat, 2 May 2015 14:56:29 +0200

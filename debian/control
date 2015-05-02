@@ -1,0 +1,15 @@
+Source: indicator-ip
+Section: net
+Priority: optional
+Maintainer: Daniel Kraus <krada@gmx.net>
+Build-Depends: debhelper (>= 9~), python, dh-python
+Standards-Version: 3.9.6
+Homepage: https://github.com/bovender/indicator-ip
+
+Package: indicator-ip
+Architecture: all
+Depends: python-appindicator, iproute2, curl, ${python:Depends}, ${misc:Depends}
+X-Python-Version: >= 2.5
+Description: Displays current IPs as indicator.
+ Indicator that shows the current IPs of the network interfaces
+ as well as the public IP on the internet.
