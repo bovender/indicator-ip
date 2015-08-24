@@ -9,6 +9,9 @@ def enable():
     if not os.path.isfile(path):
         print "Enabling autostart."
         try:
+            dir = os.path.dirname(path)
+            if not os.path.exists(dir):
+                os.makedirs(dir)
             with open(path, 'w') as f:
                 f.write("""[Desktop Entry]
                 Type=Application
