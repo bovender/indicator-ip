@@ -1,3 +1,9 @@
+indicator-ip (2.0.2) vivid; urgency=medium
+
+  * Fix setting up autostart (prevent error message if ~/.config/autostart does not exist)
+
+ -- Daniel Kraus <bovender@bovender.de>  Sat, 03 Oct 2015 12:00:00 +0200
+
 indicator-ip (2.0.1) vivid; urgency=medium
 
   * Fix .deb package build. 

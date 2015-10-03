@@ -1,7 +1,7 @@
 Source: indicator-ip
 Section: net
 Priority: optional
-Maintainer: Daniel Kraus <krada@gmx.net>
+Maintainer: Daniel Kraus <bovender@bovender.de>
 Build-Depends: debhelper (>= 9~), python, dh-python, pandoc
 Standards-Version: 3.9.6
 Homepage: https://github.com/bovender/indicator-ip
