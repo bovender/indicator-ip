@@ -29,4 +29,4 @@ README: README.md
 upload:
 	debuild -S
 	dput ppa:bovender/bovender ../indicator-ip_*_source.changes
-	rm ../indicator-ip_*_source.changes
+	rm ../indicator-ip_*
