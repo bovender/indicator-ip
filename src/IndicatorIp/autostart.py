@@ -5,6 +5,8 @@ def enable():
     log = logging.getLogger(__name__)
     log.info("Writing autostart file")
     path = __get_autostart_path()
+    if path is None: return
+
     log.debug(path)
     if not os.path.isfile(path):
         print "Enabling autostart."
@@ -51,5 +53,15 @@ def disable():
             log.warn("Failed to delete file; error: {} ({})".format(e.strerror, e.errno))
 
 def __get_autostart_path():
-    return os.path.join(
-            os.getenv('HOME'), '.config', 'autostart', 'indicator-ip.desktop')
+    desktop_file = 'indicator-ip.desktop'
+    if os.geteuid() == 0:
+        return os.path.join('/etc', 'xdg', 'autostart', desktop_file)
+    else:
+        # When updating via apt-get, $HOME may be unset, causing os.path.join
+        # to crash with a null reference exception.
+        try:
+            return os.path.join(
+                os.getenv('HOME'), '.config', 'autostart', desktop_file)
+        except Exception:
+            log.warning("Could not determine autostart path")
+            pass
