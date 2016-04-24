@@ -5,7 +5,7 @@
 A Ubuntu [indicator](http://unity.ubuntu.com/projects/appindicators/)
 to display the current IP address.
 
-Tested on Ubuntu 14.10 and 15.04 with Unity.
+Tested on Ubuntu 14.10, 15.04, 15.10 and 16.04 with Unity.
 
 
 ## Installation
@@ -74,12 +74,14 @@ The usual.
 Enables autostart upon Unity login. This is done by creating a file
 `indicator-ip.desktop` in `~/.config/autostart`. If you want to change
 the IP provider service, add the **-u** option to the command line in
-the autostart file.
+the autostart file. When run with root privileges, this will enable 
+autostart system-wide.
 
 ### `--no-autostart`
 
 Disables automatic start of the applet during Unity login by removing
-the file `~/.config/autostart/indicator-ip.desktop` .
+the file `~/.config/autostart/indicator-ip.desktop` . When run with root 
+privileges, this will disable autostart system-wide.
 
 
 ## Files
@@ -108,7 +110,7 @@ Autostart file (created by the **--autostart** option, removed by
 ## Copyright
 
 Copyright (c) 2012 [DJG](https://github.com/sentientwaffle),
-2015 Daniel Kraus ([bovender](https://github.com/bovender))
+2015-2016 Daniel Kraus ([bovender](https://github.com/bovender))
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files
