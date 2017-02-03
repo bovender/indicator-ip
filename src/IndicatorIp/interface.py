@@ -77,5 +77,5 @@ class Internal(Interface):
         # TODO: Sanitize self.name before writing it to the shell.
         return subprocess.check_output(
             'ip -4 --oneline addr show "' + self.name + '" |\
-            grep -o -P "(?<=inet )([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})"',
+            grep -o -P "(?<=inet )([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/[0-9]{1,2})"',
             shell=True)
