@@ -97,6 +97,12 @@ Autostart file (created by the **--autostart** option, removed by
 <https://github.com/bovender/indicator-ip>
 
 
+## Contributing
+
+If you wish to contribute to this project, please issue pull requests 
+against the **develop** branch. Thanks.
+
+
 ## History
 
 - [DJG](https://github.com/sentientwaffle) wrote the original script
@@ -110,7 +116,7 @@ Autostart file (created by the **--autostart** option, removed by
 ## Copyright
 
 Copyright (c) 2012 [DJG](https://github.com/sentientwaffle),
-2015-2016 Daniel Kraus ([bovender](https://github.com/bovender))
+2015-2017 Daniel Kraus ([bovender](https://github.com/bovender))
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files

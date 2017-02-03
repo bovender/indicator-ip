@@ -1,29 +1,35 @@
-indicator-ip (2.1.0) xenial; urgency=medium
+indicator-ip (2.2.0) yakkety; urgency=medium
+
+  * Show CIDR suffix for internal interfaces.
+
+ -- Daniel Kraus <bovender@bovender.de>  Fri, 3 Feb 2017 22:30:00 +0200
+
+indicator-ip (2.1.0) yakkety; urgency=medium
 
   * Do not crash during post-installation when updating.
   * Autostart may be enabled system-wide by running indicator-ip with root privileges (e.g., sudo).
 
  -- Daniel Kraus <bovender@bovender.de>  Sun, 25 Apr 2016 14:20:00 +0200
 
-indicator-ip (2.0.2-0ubuntu1) xenial; urgency=medium
+indicator-ip (2.0.2-0ubuntu1) yakkety; urgency=medium
 
   * Add dependency on python-dbus
 
  -- Daniel Kraus <bovender@bovender.de>  Sat, 23 Apr 2016 20:00:00 +0200
 
-indicator-ip (2.0.2) xenial; urgency=medium
+indicator-ip (2.0.2) yakkety; urgency=medium
 
   * Fix setting up autostart (prevent error message if ~/.config/autostart does not exist)
 
  -- Daniel Kraus <bovender@bovender.de>  Sat, 03 Oct 2015 12:00:00 +0200
 
-indicator-ip (2.0.1) xenial; urgency=medium
+indicator-ip (2.0.1) yakkety; urgency=medium
 
   * Fix .deb package build. 
 
  -- Daniel Kraus <krada@gmx.net>  Sat, 02 May 2015 16:07:08 +0200
 
-indicator-ip (2.0.0) xenial; urgency=low
+indicator-ip (2.0.0) yakkety; urgency=low
 
   * Initial Release as Ubuntu package.
 
