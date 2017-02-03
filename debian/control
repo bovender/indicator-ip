@@ -8,7 +8,7 @@ Homepage: https://github.com/bovender/indicator-ip
 
 Package: indicator-ip
 Architecture: all
-Depends: python-appindicator, iproute2, curl, python-dbus, ${python:Depends}, ${misc:Depends}
+Depends: python-appindicator, iproute2, curl, python-dbus, python-gtk2, ${python:Depends}, ${misc:Depends}
 X-Python-Version: >= 2.5
 Description: Displays current IPs as indicator.
  Indicator that shows the current IPs of the network interfaces
