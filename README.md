@@ -1,3 +1,4 @@
+[![Beerpay](https://beerpay.io/bovender/indicator-ip/badge.svg?style=flat-square)](https://beerpay.io/bovender/indicator-ip)
 # indicator-ip
 
 ![indicator](https://github.com/bovender/indicator-ip/raw/master/src/IndicatorIp/images/screenshot.png)
@@ -22,8 +23,9 @@ enter `indicator-ip`.
 
 ### Git repository
 
-  1. Checkout source code.
-  2. Auto-run `PATH_TO_REPO/src/indicator-ip` on system start-up.
+  1. Install the `python-appindicator` package.
+  2. Checkout source code.
+  3. Auto-run `PATH_TO_REPO/src/indicator-ip` on system start-up.
 
 
 ## Description
