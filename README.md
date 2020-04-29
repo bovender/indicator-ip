@@ -1,4 +1,5 @@
-[![Beerpay](https://beerpay.io/bovender/indicator-ip/badge.svg?style=flat-square)](https://beerpay.io/bovender/indicator-ip)
+> **HEADS UP!** This applet is no longer maintained. Please have a look at https://github.com/Sispheor/indicator-ip to see if it is an option for you. Thank you very much for your interest in this software. ~ [bovender](https://www.bovender.de)
+
 # indicator-ip
 
 ![indicator](https://github.com/bovender/indicator-ip/raw/master/src/IndicatorIp/images/screenshot.png)
